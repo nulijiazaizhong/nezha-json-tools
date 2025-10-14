@@ -64,6 +64,12 @@ a.nav-link.active {
 .form-check-label { color: var(--text); }
 .form-check-input { accent-color: #007bff; }
 
+/* Outline primary style coherence for Bootstrap & Element UI */
+.btn-outline-primary { color: #007bff !important; border-color: #007bff !important; }
+.btn-outline-primary:hover { background-color: #007bff !important; color: #fff !important; }
+.el-button.btn-outline-primary { background-color: transparent !important; color: #007bff !important; border-color: #007bff !important; }
+.el-button.btn-outline-primary:hover, .el-button.btn-outline-primary:focus { background-color: #007bff !important; color: #fff !important; }
+
 /* Element UI theme touch-ups */
 .el-input__inner,
 .el-textarea__inner {

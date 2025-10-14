@@ -492,7 +492,7 @@
       '    <el-col :xs="24" :sm="12">',
       '      <el-input type="textarea" :rows="20" :value="jsonOutput" readonly></el-input>',
       '      <div style="height: 10px;"></div>',
-      '      <el-button type="primary" @click="generateJson">生成 JSON</el-button>',
+      '      <el-button class="btn-outline-primary" type="default" @click="generateJson">生成 JSON</el-button>',
       '    </el-col>',
       '  </el-row>',
       '</div>'

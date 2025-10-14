@@ -34,19 +34,19 @@
   <div class="container my-4">
     <ul class="nav nav-tabs" id="toolTabs">
       <li class="nav-item">
-        <a class="nav-link active" data-target="#section-jzgz" href="#">警报规则生成器</a>
+        <a class="nav-link active" data-target="#section-gkbz" href="#">公开备注生成器</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#section-jzgz" href="#">警报规则生成器</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-target="#section-lljg" href="#">流量警告生成器</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-target="#section-gkbz" href="#">公开备注生成器</a>
       </li>
     </ul>
 
     <div class="tab-content mt-3">
       <!-- 警报规则生成器（整合 jingbaoguize） -->
-      <div id="section-jzgz" class="tab-pane active">
+      <div id="section-jzgz" class="tab-pane">
         <div class="tool-card">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <h3 class="text-center">哪吒警报规则生成器</h3>
@@ -242,7 +242,9 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary btn-block" id="ll-generateRuleBtn">生成规则</button>
+          <div class="text-right">
+            <button type="button" class="btn btn-outline-primary" id="ll-generateRuleBtn">生成规则</button>
+          </div>
           <div class="mt-4">
             <label for="ll-ruleOutput">生成的 JSON 规则:</label>
             <div class="input-group">
@@ -278,7 +280,7 @@
       </div>
 
       <!-- 公开备注生成器（整合 gongkaibeizhu） -->
-      <div id="section-gkbz" class="tab-pane">
+      <div id="section-gkbz" class="tab-pane active">
         <div class="tool-card">
           <div class="d-flex justify-content-center align-items-center mb-4">
             <h3 class="text-center">公开备注 JSON 生成器</h3>
