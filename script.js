@@ -29,7 +29,7 @@
     if (label) label.textContent = theme === 'dark' ? '浅色' : '深色';
   }
   function getStoredTheme() {
-    try { return localStorage.getItem('theme') || 'light'; } catch (e) { return 'light'; }
+    try { return localStorage.getItem('theme') || 'dark'; } catch (e) { return 'dark'; }
   }
   function setStoredTheme(theme) {
     try { localStorage.setItem('theme', theme); } catch (e) {}
