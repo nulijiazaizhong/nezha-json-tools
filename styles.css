@@ -1,0 +1,213 @@
+:root {
+  --bg: #f8f9fa;
+  --text: #212529;
+  --card-bg: #ffffff;
+  --muted-text: #6c757d;
+  --border-color: rgba(0, 0, 0, 0.125);
+  --input-bg: var(--card-bg);
+  --hover-bg: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] {
+  --bg: #000000;
+  --text: #e6e6e6;
+  --card-bg: #000000;
+  --muted-text: #9da1a5;
+  --border-color: rgba(247, 247, 247, 0.15);
+  --input-bg: var(--card-bg);
+  --hover-bg: rgba(255, 255, 255, 0.08);
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.navbar, .card, .modal-content {
+  background-color: var(--card-bg);
+  color: var(--text);
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+  color: var(--text) !important;
+}
+
+.form-control,
+select.form-control,
+input.form-control,
+pre.form-control,
+.flatpickr-input {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+.form-control::placeholder {
+  color: var(--muted-text) !important;
+}
+.input-group-text,
+.custom-select {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+
+.rule-output { min-height: 200px; }
+
+a.nav-link { color: var(--text); }
+a.nav-link.active {
+  border-color: var(--border-color) var(--border-color) var(--card-bg);
+}
+
+.btn-outline-dark { color: var(--text); border-color: var(--border-color); }
+.btn { color: var(--text); }
+.btn-outline-secondary { color: var(--text); border-color: var(--border-color); }
+.form-check-label { color: var(--text); }
+.form-check-input { accent-color: #007bff; }
+
+/* Element UI theme touch-ups */
+.el-input__inner,
+.el-textarea__inner {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+.el-select-dropdown, .el-picker-panel, .el-time-panel, .el-popper {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+.el-picker-panel__footer, .el-time-panel__footer {
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+.el-picker-panel__footer .el-button {
+  color: var(--text) !important;
+}
+.el-input__inner::placeholder,
+.el-textarea__inner::placeholder {
+  color: var(--muted-text) !important;
+}
+.el-form-item__label,
+.el-radio__label,
+.el-checkbox__label,
+.el-switch__label { color: var(--text) !important; }
+.el-select .el-input.is-focus .el-input__inner,
+.el-input__inner:focus {
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
+}
+.el-select-dropdown__item { color: var(--text) !important; }
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover,
+.el-select-dropdown__item.selected {
+  background-color: var(--hover-bg) !important;
+}
+.el-date-picker__header,
+.el-picker-panel__content,
+.el-time-spinner__item,
+.el-time-panel__content { color: var(--text) !important; }
+.el-date-table td.available span,
+.el-month-table td div,
+.el-year-table td div { color: var(--text) !important; }
+.el-date-table td.current span,
+.el-date-table td.today span {
+  background-color: var(--hover-bg) !important;
+  color: var(--text) !important;
+}
+.el-button--primary {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #fff !important;
+}
+
+/* Element UI input group append/prepend background fix */
+.el-input-group__append,
+.el-input-group__prepend {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+.el-input.is-disabled .el-input__inner,
+.el-textarea.is-disabled .el-textarea__inner {
+  background-color: var(--input-bg) !important;
+  color: var(--muted-text) !important;
+}
+
+/* Element UI unit select width fix inside input groups */
+.input-with-select .el-input-group__append .el-select,
+.input-with-select .el-input-group__prepend .el-select {
+  min-width: 120px;
+}
+.input-with-select .el-input-group__append .el-select .el-input,
+.input-with-select .el-input-group__prepend .el-select .el-input {
+  width: auto;
+  min-width: 110px;
+}
+.input-with-select .el-input-group__append .el-select .el-input__inner,
+.input-with-select .el-input-group__prepend .el-select .el-input__inner {
+  padding: 0 28px 0 12px;
+}
+
+/* Element UI divider text background fix */
+.el-divider { border-top-color: var(--border-color) !important; }
+.el-divider__text {
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+}
+
+.container { max-width: 1000px; }
+.tool-card {
+  padding: 1rem;
+  border-radius: .75rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.08);
+  background-color: var(--card-bg);
+}
+
+pre code { color: var(--text); }
+
+/* Highlight.js theme fix for dark/light */
+.hljs {
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+/* Tabs color sync */
+.nav-tabs { border-bottom: 1px solid var(--border-color); }
+.nav-tabs .nav-link { color: var(--text); }
+.nav-tabs .nav-link.active {
+  background-color: var(--card-bg);
+  border-color: var(--border-color) var(--border-color) var(--card-bg);
+}
+
+/* Modal headers/footers sync */
+.modal-header, .modal-footer {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border-color);
+}
+
+/* Flatpickr theme fix */
+.flatpickr-calendar {
+  background: var(--input-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+}
+.flatpickr-months,
+.flatpickr-months .flatpickr-month,
+.flatpickr-weekdays { background: var(--input-bg) !important; }
+.flatpickr-weekday,
+.flatpickr-months .flatpickr-month .cur-month,
+.flatpickr-current-month .numInputWrapper input { color: var(--text) !important; }
+.flatpickr-day { color: var(--text) !important; }
+.flatpickr-day:hover { background: var(--hover-bg) !important; }
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.inRange { background: var(--hover-bg) !important; color: var(--text) !important; border-color: var(--border-color) !important; }
+.flatpickr-day.today { border-color: var(--border-color) !important; }
+.numInputWrapper span { color: var(--text) !important; }
+.flatpickr-time { border-top: 1px solid var(--border-color) !important; }
+.flatpickr-time .numInputWrapper input,
+.flatpickr-time .flatpickr-am-pm { background: var(--input-bg) !important; color: var(--text) !important; }

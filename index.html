@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>哪吒监控 JSON 工具合集</title>
+  <!-- UI Libraries -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+  <!-- Element UI -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- App Styles -->
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="./liuliangjinggao/favicon.png">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">哪吒监控 JSON 工具合集</a>
+    <div class="ml-auto d-flex align-items-center">
+      <button id="themeToggle" class="btn btn-outline-secondary" title="切换深浅色">
+        <i id="themeIcon" class="fa-solid fa-moon"></i>
+        <span id="themeLabel">深色</span>
+      </button>
+      <a id="githubRepoBtn" class="btn btn-outline-secondary ml-2" href="https://github.com/nulijiazaizhong/nezha-json-tools" target="_blank" rel="noopener noreferrer" title="打开 GitHub 仓库">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    <ul class="nav nav-tabs" id="toolTabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-target="#section-jzgz" href="#">警报规则生成器</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#section-lljg" href="#">流量警告生成器</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#section-gkbz" href="#">公开备注生成器</a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+      <!-- 警报规则生成器（整合 jingbaoguize） -->
+      <div id="section-jzgz" class="tab-pane active">
+        <div class="tool-card">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <h3 class="text-center">哪吒警报规则生成器</h3>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="jz-monItems">监控项目:</label>
+              <select class="form-control" id="jz-monItems"></select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="jz-serverIds" id="jz-serveridslabel">服务器黑名单 ID (用逗号分隔):</label>
+              <input type="text" class="form-control" id="jz-serverIds" placeholder="例如: 1,2,3;可为空！">
+            </div>
+          </div>
+          <div class="mb-2 text-right">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#jz-statInfoModal">
+              <i class="fa-solid fa-circle-info"></i> 统计值说明
+            </button>
+          </div>
+          <div class="form-row" id="jz-numdiv">
+            <div class="form-group col-md-6">
+              <label for="jz-min">下限值:</label>
+              <input type="text" class="form-control" id="jz-min" placeholder="最低起始值">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="jz-max">上限值:</label>
+              <input type="text" class="form-control" id="jz-max" placeholder="最高阈值">
+            </div>
+          </div>
+          <div class="form-group" id="jz-durationdiv">
+            <label for="jz-duration">持续监控时间（秒）:</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="jz-duration" placeholder="监控秒数" value="10">
+            </div>
+          </div>
+          <div class="form-group" id="jz-flowdiv" style="display: none;">
+            <div class="form-group">
+              <label>统计周期开始时间:</label>
+              <div class="input-group mb-3">
+                <select class="form-control" id="jz-cycleStartTimezone"></select>
+                <input type="text" class="form-control" id="jz-cycleStartDate" placeholder="可选择日期" data-input>
+                <input type="text" class="form-control" id="jz-cycleStartTime" placeholder="可选择时间" data-input>
+              </div>
+              <input type="text" class="form-control" id="jz-cycleStart" readonly>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="jz-trafficType">流量类型:</label>
+                <select class="form-control" id="jz-trafficType">
+                  <option value="transfer_in_cycle">入站流量</option>
+                  <option value="transfer_out_cycle">出站流量</option>
+                  <option value="transfer_all_cycle" selected>双向流量</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="jz-cycleUnit">周期单位:</label>
+                <select class="form-control" id="jz-cycleUnit">
+                  <option value="hour">小时</option>
+                  <option value="day">天</option>
+                  <option value="week">周</option>
+                  <option value="month" selected>月</option>
+                  <option value="year">年</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="jz-cycleInterval">周期间隔 (单位为选择的周期单位):</label>
+                <input type="number" class="form-control" id="jz-cycleInterval" min="1" value="1">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="0" id="jz-cover_checkbox">
+            <label class="form-check-label" for="jz-cover_checkbox">白名单模式</label>
+          </div>
+          <div class="text-right">
+            <button type="button" class="btn btn-outline-primary" id="jz-generateRuleBtn">生成规则</button>
+            <button type="button" class="btn btn-outline-warning" id="jz-appendRuleBtn">追加规则</button>
+            <button type="button" class="btn btn-outline-danger" id="jz-clearRuleBtn">清空规则</button>
+          </div>
+          <div class="mt-4">
+            <label for="jz-ruleOutput">生成的 JSON 规则:</label>
+            <div class="input-group">
+              <pre class="form-control rule-output"><code id="jz-ruleOutput" class="json"></code></pre>
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button" id="jz-copyRuleBtn">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="jz-errorModal" tabindex="-1" role="dialog" aria-labelledby="jz-errorModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="jz-errorModalLabel">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="jz-errorMessage"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 统计值说明 Modal -->
+        <div class="modal fade" id="jz-statInfoModal" tabindex="-1" role="dialog" aria-labelledby="jz-statInfoModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="jz-statInfoModalLabel">统计值的说明</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>如汇报值达不到下限值或超过上限值，告警会被触发；不同监控类型的统计值单位也不同：</p>
+                <ul>
+                  <li>CPU、内存、交换、磁盘：百分比（%）。</li>
+                  <li>网速、流量：字节（B）。</li>
+                  <li>负载：机器负载值。</li>
+                  <li>进程数、TCP/UDP 连接数：数值计数。</li>
+                  <li>温度：摄氏度（°C）。</li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 流量警告生成器（整合 liuliangjinggao） -->
+      <div id="section-lljg" class="tab-pane">
+        <div class="tool-card">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <h3 class="text-center">哪吒流量警告规则生成器</h3>
+          </div>
+          <div class="form-group">
+            <label for="ll-serverIds">服务器 ID (用逗号分隔):</label>
+            <input type="text" class="form-control" id="ll-serverIds" placeholder="例如: 1,2,3" value="0">
+          </div>
+          <div class="form-group">
+            <label>统计周期开始时间:</label>
+            <div class="input-group mb-3">
+              <select class="form-control" id="ll-cycleStartTimezone"></select>
+              <input type="text" class="form-control" id="ll-cycleStartDate" placeholder="可选择日期" data-input>
+              <input type="text" class="form-control" id="ll-cycleStartTime" placeholder="可选择时间" data-input>
+            </div>
+            <input type="text" class="form-control" id="ll-cycleStart" readonly>
+          </div>
+          <div class="form-group">
+            <label for="ll-trafficType">流量类型:</label>
+            <select class="form-control" id="ll-trafficType">
+              <option value="transfer_in_cycle">入站流量</option>
+              <option value="transfer_out_cycle">出站流量</option>
+              <option value="transfer_all_cycle" selected>双向流量</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ll-cycleUnit">周期单位:</label>
+            <select class="form-control" id="ll-cycleUnit">
+              <option value="hour">小时</option>
+              <option value="day">天</option>
+              <option value="week">周</option>
+              <option value="month" selected>月</option>
+              <option value="year">年</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ll-cycleInterval">周期间隔 (单位为选择的周期单位):</label>
+            <input type="number" class="form-control" id="ll-cycleInterval" min="1" value="1">
+          </div>
+          <div class="form-group">
+            <label for="ll-maxTraffic">流量上限:</label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="ll-maxTraffic" min="0" value="1" step="0.01">
+              <div class="input-group-append">
+                <select class="form-control" id="ll-trafficUnit">
+                  <option value="1024">KB</option>
+                  <option value="1048576">MB</option>
+                  <option value="1073741824" selected>GB</option>
+                  <option value="1099511627776">TB</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" id="ll-generateRuleBtn">生成规则</button>
+          <div class="mt-4">
+            <label for="ll-ruleOutput">生成的 JSON 规则:</label>
+            <div class="input-group">
+              <pre class="form-control rule-output"><code id="ll-ruleOutput" class="json"></code></pre>
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button" id="ll-copyRuleBtn">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ll-errorModal" tabindex="-1" role="dialog" aria-labelledby="ll-errorModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ll-errorModalLabel">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="ll-errorMessage"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 公开备注生成器（整合 gongkaibeizhu） -->
+      <div id="section-gkbz" class="tab-pane">
+        <div class="tool-card">
+          <div class="d-flex justify-content-center align-items-center mb-4">
+            <h3 class="text-center">公开备注 JSON 生成器</h3>
+          </div>
+          <div id="gkbz-app"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/languages/json.min.js"></script>
+  <!-- Vue & Element UI -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- App Script -->
+  <script src="./script.js"></script>
+</body>
+
+</html>
