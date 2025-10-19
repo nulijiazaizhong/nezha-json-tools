@@ -1,0 +1,84 @@
+{
+  "mon_items": {
+    "cpu": {
+      "name": "CPU 使用率",
+      "value": "cpu"
+    },
+    "memory": {
+      "name": "内存使用率",
+      "value": "memory"
+    },
+    "swap": {
+      "name": "Swap 使用率",
+      "value": "swap"
+    },
+    "disk": {
+      "name": "硬盘使用率",
+      "value": "disk"
+    },
+    "net_in_speed": {
+      "name": "入站网速",
+      "value": "net_in_speed"
+    },
+    "net_out_speed": {
+      "name": "出站网速",
+      "value": "net_out_speed"
+    },
+    "net_all_speed": {
+      "name": "总网速",
+      "value": "net_all_speed"
+    },
+    "transfer_in": {
+      "name": "入站流量",
+      "value": "transfer_in"
+    },
+    "transfer_out": {
+      "name": "出站流量",
+      "value": "transfer_out"
+    },
+    "transfer_all": {
+      "name": "总流量",
+      "value": "transfer_all"
+    },
+    "transfer_in_cycle": {
+      "name": "周期内入站流量",
+      "value": "transfer_in_cycle"
+    },
+    "transfer_out_cycle": {
+      "name": "周期内出站流量",
+      "value": "transfer_out_cycle"
+    },
+    "transfer_all_cycle": {
+      "name": "周期内总流量",
+      "value": "transfer_all_cycle"
+    },
+    "load1": {
+      "name": "1分钟负载",
+      "value": "load1"
+    },
+    "load5": {
+      "name": "5分钟负载",
+      "value": "load5"
+    },
+    "load15": {
+      "name": "15分钟负载",
+      "value": "load15"
+    },
+    "tcp_conn_count": {
+      "name": "TCP连接数",
+      "value": "tcp_conn_count"
+    },
+    "udp_conn_count": {
+      "name": "UDP连接数",
+      "value": "udp_conn_count"
+    },
+    "process_count": {
+      "name": "进程数",
+      "value": "process_count"
+    },
+    "offline": {
+      "name": "离线",
+      "value": "offline"
+    }
+  }
+}
